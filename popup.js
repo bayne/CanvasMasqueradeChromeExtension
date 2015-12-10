@@ -14,7 +14,7 @@ function findByLoginId(searchTerm, callback, errorCallback) {
     return searchUsers(searchTerm)
         .then(function (users) {
             for (var i = 0; i < users.length; i++) {
-                if (users[i].login_id == searchTerm) {
+                if (users[i].login_id.toLowerCase() == searchTerm.toLowerCase()) {
                     return users[i];
                 }
             }
