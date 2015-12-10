@@ -18,6 +18,7 @@ function findByLoginId(searchTerm, callback, errorCallback) {
                     return users[i];
                 }
             }
+            alert("No users found with that login id");
         })
     ;
 }
@@ -33,6 +34,8 @@ $(function () {
         findByLoginId($("#masquerade").val())
             .then(function (user) {
                 masqueradeAsUser(user);
+            }, function () {
+                alert("Could not masquerade, are you on a Canvas website?");
             })
         ;
         e.preventDefault();
