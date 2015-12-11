@@ -18,10 +18,16 @@ function findByLoginId(searchTerm, callback, errorCallback) {
                     return users[i];
                 }
             }
-            alert("No users found with that login id");
+            pageAlert("No users found with that login id");
         })
     ;
 }
+
+function pageAlert(message) {
+    chrome.tabs.executeScript(null,
+      {code:"alert('"+message+"');"});
+}
+
 
 function masqueradeAsUser(user) {
   chrome.tabs.executeScript(null,
@@ -35,7 +41,7 @@ $(function () {
             .then(function (user) {
                 masqueradeAsUser(user);
             }, function () {
-                alert("Could not masquerade, are you on a Canvas website?");
+                pageAlert("Could not masquerade, are you on a Canvas website?");
             })
         ;
         e.preventDefault();
