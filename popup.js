@@ -6,7 +6,7 @@ chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
 function searchUsers(searchTerm, callback, errorCallback) {
     return $.getJSON(
         url+'/api/v1/accounts/1/users',
-        {'search_term': searchTerm}
+        {'search_term': searchTerm, 'per_page': 100}
     );
 }
 
