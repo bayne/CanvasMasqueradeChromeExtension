@@ -31,7 +31,7 @@ function pageAlert(message) {
 
 function masqueradeAsUser(user) {
   chrome.tabs.executeScript(null,
-      {code:"window.location = '"+url+"/users/"+user.id+"/masquerade'"});
+      {code:"window.location = '"+url+"/?become_user_id="+user.id+"'"});
   window.close();
 }
 
