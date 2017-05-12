@@ -35,16 +35,41 @@ function masqueradeAsUser(user) {
   window.close();
 }
 
+function goToUserPage(user) {
+  chrome.tabs.executeScript(null,
+      {code:"window.location = '"+url+"/users/"+user.id+"'"});
+  window.close();
+}
+
 $(function () {
+    $("form input[type=submit]").click(function() {
+        $("input[type=submit]", $(this).parents("form")).removeAttr("clicked");
+        $(this).attr("clicked", "true");
+    });
+
     $("#form").submit(function (e) {
-        findByLoginId($("#masquerade").val())
-            .then(function (user) {
-                masqueradeAsUser(user);
-            }, function () {
-                pageAlert("Could not masquerade, are you on a Canvas website?");
-            })
-        ;
+
+        var val = $("input[type=submit][clicked=true]").val();
+
+        if (val == 'Profile') {
+            findByLoginId($("#masquerade").val())
+                .then(function (user) {
+                    goToUserPage(user);
+                }, function () {
+                    pageAlert("Could not go to the user's profile, are you on a Canvas website?");
+                })
+            ;
+        } else {
+            findByLoginId($("#masquerade").val())
+                .then(function (user) {
+                    masqueradeAsUser(user);
+                }, function () {
+                    pageAlert("Could not masquerade, are you on a Canvas website?");
+                })
+            ;
+        }
         e.preventDefault();
+        $(".loading").show();
     });
 });
 
