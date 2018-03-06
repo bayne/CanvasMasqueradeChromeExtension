@@ -48,6 +48,7 @@ $(function () {
     });
 
     $("#form").submit(function (e) {
+		$.LoadingOverlay("show");
 
         var val = $("input[type=submit][clicked=true]").val();
 
@@ -69,7 +70,6 @@ $(function () {
             ;
         }
         e.preventDefault();
-        $(".loading").show();
     });
 });
 
